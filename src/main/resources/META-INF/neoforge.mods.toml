@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+[[mods]]
+modId="more_boss_skills"
+version="${version}"
+displayName="MITE: Modern More Boss Skills"
+authors="NingMeng123"
+displayURL="https://github.com/65658dsf/MITE-Modern-More-Boss-Skills"
+description='''Optional skills, telegraphs, sounds and casting animations for four MITE: Modern ITE bosses.'''
+[[mixins]]
+config="more_boss_skills.mixins.json"
+[[dependencies.more_boss_skills]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.259,21.2)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.more_boss_skills]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.more_boss_skills]]
+modId="mite"
+type="required"
+versionRange="[0.3.5,)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.more_boss_skills]]
+modId="modern_ite"
+type="required"
+versionRange="[0.3.5]"
+ordering="AFTER"
+side="BOTH"

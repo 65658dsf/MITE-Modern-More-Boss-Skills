@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.ningmeng123.morebossskills.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "common.BossMemoryMixin",
+    "common.BossChallengeInvoker",
+    "common.BossAbilitiesMixin",
+    "common.BossLegacyDamageMixin",
+    "common.BossEntityAttackMixin",
+    "common.BossSwingMixin",
+    "common.BossDiggingMixin",
+    "common.BossBlockProtectionMixin",
+    "common.BossNonDestructiveGoalsMixin"
+  ],
+  "client": [
+    "client.BossCastRendererMixin",
+    "client.BossCastArmorMixin",
+    "client.BossCastArmorCopyMixin",
+    "client.BossCastEmfFinalPoseMixin"
+  ],
+  "injectors": { "defaultRequire": 1 }
+}

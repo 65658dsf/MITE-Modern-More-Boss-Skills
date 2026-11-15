@@ -1,0 +1,73 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+version = mod_version
+group = 'io.github.ningmeng123.morebossskills'
+base { archivesName = 'MITE-Modern-More-Boss-Skills' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+repositories { mavenCentral() }
+def miteJar = file(providers.gradleProperty('miteJar').getOrElse('../miteto1.21.1neoforge/build/libs/MITE-Modern-0.3.5.jar'))
+def iteJar = file(providers.gradleProperty('iteJar').getOrElse('../MITE Modern ITE/build/libs/MITE-Modern-ITE-0.3.5.jar'))
+sourceSets {
+    gametest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+configurations {
+    gametestImplementation.extendsFrom implementation
+    gametestRuntimeOnly.extendsFrom runtimeOnly
+    gametestCompileOnly.extendsFrom compileOnly
+}
+def auditNames = ['modernIteBossSkillsAudit', 'modernIteBossSkillsAuditExtended', 'modernIteBossSkillsCommandAudit', 'modernIteBossPresentationAudit']
+def auditEnabled = auditNames.any { providers.gradleProperty(it).getOrElse('false').toBoolean() }
+neoForge {
+    version = '21.1.259'
+    addModdingDependenciesTo sourceSets.gametest
+    runs {
+        client {
+            client()
+            gameDirectory = file(auditEnabled ? 'build/verification/boss-skills/client-run' : 'run-client')
+            if (auditEnabled) {
+                programArguments.addAll '--width', '1600', '--height', '900'
+                systemProperty 'modern_ite.bossSkillsAudit', 'true'
+                systemProperty 'modern_ite.bossSkillsAuditExtended', providers.gradleProperty('modernIteBossSkillsAuditExtended').getOrElse('false')
+                systemProperty 'modern_ite.bossSkillsCommandAudit', providers.gradleProperty('modernIteBossSkillsCommandAudit').getOrElse('false')
+                systemProperty 'modern_ite.bossPresentationAudit', providers.gradleProperty('modernIteBossPresentationAudit').getOrElse('false')
+                def report = providers.gradleProperty('modernIteBossPresentationAudit').getOrElse('false').toBoolean()
+                        ? 'build/verification/boss-presentation/audit.json' : providers.gradleProperty('modernIteBossSkillsCommandAudit').getOrElse('false').toBoolean()
+                        ? 'build/verification/boss-skills/command-audit.json' : providers.gradleProperty('modernIteBossSkillsAuditExtended').getOrElse('false').toBoolean()
+                        ? 'build/verification/boss-skills/extended-audit.json' : 'build/verification/boss-skills/client-audit.json'
+                systemProperty 'modern_ite.bossSkillsAuditOutput', file(providers.gradleProperty('modernIteBossSkillsAuditOutput').getOrElse(report)).absolutePath
+            }
+        }
+        server { server(); gameDirectory = file('run-server'); programArgument '--nogui' }
+        gameTestServer {
+            type = 'gameTestServer'
+            gameDirectory = file('build/verification/gametest-run')
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'more_boss_skills_test'
+        }
+    }
+    mods { more_boss_skills { sourceSet sourceSets.main; sourceSet sourceSets.gametest } }
+}
+dependencies {
+    implementation files(miteJar, iteJar)
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.named('processResources', ProcessResources) {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/neoforge.mods.toml') { expand(version: project.version) }
+}
+tasks.register('prepareDevClientWindow') {
+    doLast {
+        def directory = auditEnabled ? 'build/verification/boss-skills/client-run' : 'run-client'
+        def config = file("${directory}/config/fml.toml")
+        config.parentFile.mkdirs()
+        def existing = config.exists() ? config.getText('UTF-8') : ''
+        def updated = existing =~ /(?m)^earlyWindowControl\s*=.*$/
+        def text = updated.find() ? existing.replaceAll(/(?m)^earlyWindowControl\s*=.*$/, 'earlyWindowControl = false') : existing + '\nearlyWindowControl = false\n'
+        if (existing != text) config.setText(text, 'UTF-8')
+    }
+}
+tasks.named('runClient') { dependsOn prepareDevClientWindow }
