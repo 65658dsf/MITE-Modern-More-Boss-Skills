@@ -272,7 +272,11 @@ public final class BossAbilities {
         }
         if(skill==BossSkill.ZOMBIE_TRIPLE&&age%40==0&&age<=80){
             int wave=age/40;
-            add(level,mob,state,cast,Effect.RING,theme,cast.origin,knownPosition(mob,state,target,cast.aim),20,20,6+wave*2,.8F,90,6);
+            cast.aim=knownPosition(mob,state,target,cast.aim);
+            // A ring's endpoint points into its safe gap, so put that gap behind the announced attack.
+            // Capture it once per warning; moving during the warning must remain a valid dodge.
+            Vec3 gap=cast.origin.subtract(BossGeometry.horizontalDirection(cast.origin,cast.aim));
+            add(level,mob,state,cast,Effect.RING,theme,cast.origin,gap,20,20,6+wave*2,.8F,90,6);
         }
         if(skill==BossSkill.TYRANT_TIDE&&age%54==0&&age<=108)
             add(level,mob,state,cast,Effect.RING,theme,cast.origin,knownPosition(mob,state,target,cast.aim),24,30,12,.8F,70,6);
@@ -522,8 +526,8 @@ public final class BossAbilities {
     }
 
     static final class Cast {
-        final BossSkill skill;final UUID target;final Vec3 aim;
-        Vec3 origin,destination;
+        final BossSkill skill;final UUID target;
+        Vec3 origin,destination,aim;
         int age,end;boolean escape;
         final List<Hazard> hazards=new ArrayList<>();
         final List<Mob> followers=new ArrayList<>();

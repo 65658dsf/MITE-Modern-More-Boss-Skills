@@ -1,6 +1,6 @@
 # More Boss Skills：四类 Boss 技能与反卡位
 
-开发署名：NingMeng123。适用 Minecraft 1.21.1 / NeoForge 21.1.259，交付版本保持 0.3.5。
+开发署名：NingMeng123。适用 Minecraft 1.21.1 / NeoForge 21.1.259，扩展交付版本为 0.0.1；前置 MITE 与 ITE 均要求 >= 0.3.5。
 
 本功能为独立可选扩展，需要 MITE: Modern 与 MITE: Modern ITE。卸下扩展后使用 ITE 原有 Boss 行为；安装方法见项目 README。
 
@@ -16,6 +16,8 @@
 | 湮灭骷髅 | 虚空裂斩、裂隙追刺、虚相移形 | 湮灭奇点 |
 | 骷髅暴君 | 王骸穿刺、白骨轮刃、骸阵号令 | 白骨潮汐 |
 | 不朽尸皇 | 帝陨重击、黄泉敕令、不朽军令 | 冥日临朝 |
+
+暴怒三震每一震预警开始时，以目标的已知位置确定攻击方向：270° 攻击区朝向目标，90° 安全缺口位于相反方向。每一震保留 1 秒预警，方向在预警开始后锁定，下一震再重新瞄准。在冲击波覆盖范围内原地站立不再能无伤躲过；及时进入当轮缺口或跳过冲击波仍可躲避。指令预览采用相同方向规则。
 
 新增技能冷却与原有挑战计时、召唤计数、湮灭消失计时分别存储。
 僵尸 BOSS 的既有有效近战贡献规则保持；仍在 24 格战斗范围内躲避技能不会耗尽挑战宽限。
@@ -110,7 +112,7 @@
 日志为本工程的 `build/verification/split-server-tests.log`、`split-command-audit.log` 和 `split-presentation-audit.log`，报告为 `boss-skills/command-audit.json` 与 `boss-presentation/audit.json`。
 不安装扩展的 ITE 对照测试通过：没有技能指令、技能字段及扩展存档键，僵尸 Boss 使用原挑战规则；恢复后的 ITE 还通过 40 项 JUnit。
 对应日志位于原 ITE 工程的 `build/verification/boss-split-base-absence.log` 与 `boss-split-base-build.log`。
-发布包 `build/libs/MITE-Modern-More-Boss-Skills-0.3.5.jar` 已检查不包含前置模组、GameTest 或客户端审计类；配套 ITE 包已检查不含内置技能代码。
+独立扩展发布包已检查不包含前置模组、GameTest 或客户端审计类；配套 ITE 包已检查不含内置技能代码。当前交付路径为 `build/libs/MITE-Modern-More-Boss-Skills-0.0.1.jar`。
 
 **历史记录：原 ITE 内置实现（2026-11-15，拆分之前）。**当时 `build` 成功，40 项 JUnit 和 21 项服务端 GameTest 全部通过。
 基础与扩展视觉审计共 13 个场景、26 张阶段截图；真实指令审计 7 个场景、26 张阶段截图及 1 张停止后截图，当时均通过且逐张检查。
@@ -119,5 +121,7 @@
 原内置实现的音效与施法动作补充验证也已通过：8 个客户端场景、23 张阶段截图与 8 张基线图；当时的正式渲染记录中，模型和盔甲还原误差为 0，共享自定义盔甲复制后也正确还原。
 该轮还在音频线程验证了停止预览后的原生声道停止，并观察至原时间线结束，确认后续波次没有重新播放。
 对应历史构建与回归日志位于原 `MITE Modern ITE` 工程的 `build/verification/boss-presentation-final-build.log`。
+
+2026-11-17 修正暴怒三震的攻击朝向与预览方向，并新增 3 项回归测试。前置 MITE/ITE 0.3.5 和 0.3.6 两套环境均通过全部 27 项服务端 GameTest；覆盖原地目标每波命中、后方缺口、跳跃、波内方向锁定与逐波重新瞄准。客户端真实指令审计 7 个场景通过，报告为 `build/verification/triple-direction/command-audit.json`，服务端日志为 `build/verification/triple-direction-server-0.3.5.log` 与 `triple-direction-server-0.3.6.log`。随后按独立扩展编号规则，将扩展版本修正为 0.0.1，ITE 依赖范围为 `[0.3.5,)`（大于等于 0.3.5）。
 
 视觉结构参考 EnderDragonPlus 与 Wither-Plus 的 1.21.1 分支。技能代码和程序化视觉由本项目自行实现，不捆绑外部模组、代码或贴图。

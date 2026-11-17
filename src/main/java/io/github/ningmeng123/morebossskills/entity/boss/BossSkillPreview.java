@@ -45,7 +45,8 @@ public final class BossSkillPreview {
             case ZOMBIE_MARK -> sequence.mark(0,center,28,2.5F);
             case ZOMBIE_CHAIN -> sequence.ray(Effect.CHAIN,forward,1,14,20,6,1.2F);
             case ZOMBIE_TRIPLE -> {
-                for(int wave=0;wave<3;wave++)sequence.add(wave*40,Effect.RING,center,aim,20,20,6+wave*2,.8F,90);
+                Vec3 gap=center.subtract(forward);
+                for(int wave=0;wave<3;wave++)sequence.add(wave*40,Effect.RING,center,gap,20,20,6+wave*2,.8F,90);
             }
             case ANNIHILATION_SLASH -> sequence.ray(Effect.BEAM,forward,.85,20,24,10,2);
             case ANNIHILATION_MARK -> sequence.mark(0,center,26,2.5F);

@@ -1,6 +1,6 @@
 # MITE: Modern More Boss Skills
 
-为 MITE: Modern ITE 提供可选的 Boss 技能增强。开发者：**NingMeng123**。Minecraft 1.21.1，NeoForge 21.1.259，版本 **0.3.5**。
+为 MITE: Modern ITE 提供可选的 Boss 技能增强。开发者：**NingMeng123**。Minecraft 1.21.1，NeoForge 21.1.259，扩展版本 **0.0.1**。
 
 源码仓库：[MITE-Modern-More-Boss-Skills](https://github.com/65658dsf/MITE-Modern-More-Boss-Skills)。前置项目：[MITE: Modern](https://github.com/65658dsf/mite-neoforge-1.21.1) 与 [MITE: Modern ITE](https://github.com/65658dsf/MITE-Modern-ITE)。
 
@@ -8,9 +8,11 @@
 
 客户端与服务端均安装以下三个 JAR：
 
-1. `MITE-Modern-0.3.5.jar`
-2. `MITE-Modern-ITE-0.3.5.jar`（拆分后的原版行为构建）
-3. `MITE-Modern-More-Boss-Skills-0.3.5.jar`（本扩展）
+1. `MITE-Modern-0.3.5.jar` 或更高版本
+2. `MITE-Modern-ITE-0.3.5.jar` 或更高版本（拆分后的原版行为构建）
+3. `MITE-Modern-More-Boss-Skills-0.0.1.jar`（本扩展）
+
+扩展独立编号为 `0.0.1`，前置 MITE 与 ITE 均要求 `>= 0.3.5`。
 
 只安装前两个模组时，Boss 使用原有行为，没有本扩展的技能、音效、动作或 `/mite boss` 指令。
 第三个 JAR 安装后，僵尸 BOSS、湮灭骷髅、骷髅暴君与不朽尸皇获得共 16 项技能、地面预警、反卡位与安全脱困。
@@ -62,4 +64,6 @@ boss_skill_cooldown_multiplier = 1.0
 审计开关保留迁移前的名称以便重用验证脚本，审计世界与报告均在此扩展工程的 `build/verification`，不使用玩家正常世界。
 前置模组仅作为依赖，不打包进扩展 JAR；测试和客户端审计类也不包含在发布包中。
 
-2026-11-15 拆分验证：24 项扩展 GameTest、7 项指令特效场景、8 项音画场景通过；仅安装前置模组的对照测试及恢复后 ITE 的 40 项 JUnit 通过。版本均保持 0.3.5。
+2026-11-15 拆分验证：24 项扩展 GameTest、7 项指令特效场景、8 项音画场景通过；仅安装前置模组的对照测试及恢复后 ITE 的 40 项 JUnit 通过。
+
+2026-11-17 修正暴怒三震的安全缺口方向，前置 MITE/ITE 0.3.5 和 0.3.6 两套环境均通过 27 项 GameTest，客户端指令审计 7 项通过。扩展版本修正为独立的 `0.0.1`。
