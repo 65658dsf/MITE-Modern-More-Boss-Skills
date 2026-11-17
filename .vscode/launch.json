@@ -1,0 +1,71 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - mite-modern-more-boss-skills",
+        "order": 0
+      },
+      "projectName": "mite-modern-more-boss-skills",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\build\\moddev\\clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dmore_boss_skills%%D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\bin\\main;more_boss_skills%%D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\bin\\gametest"
+      ],
+      "cwd": "${workspaceFolder}\\run-client",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "GameTestServer",
+      "presentation": {
+        "group": "Mod Development - mite-modern-more-boss-skills",
+        "order": 1
+      },
+      "projectName": "mite-modern-more-boss-skills",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\build\\moddev\\gameTestServerRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dmore_boss_skills%%D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\bin\\main;more_boss_skills%%D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\bin\\gametest"
+      ],
+      "cwd": "${workspaceFolder}\\build\\verification\\gametest-run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Server",
+      "presentation": {
+        "group": "Mod Development - mite-modern-more-boss-skills",
+        "order": 2
+      },
+      "projectName": "mite-modern-more-boss-skills",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\build\\moddev\\serverRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dmore_boss_skills%%D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\bin\\main;more_boss_skills%%D:\\Coding\\LemonDev\\minecraft\\MITE Modern More Boss Skills\\bin\\gametest"
+      ],
+      "cwd": "${workspaceFolder}\\run-server",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}
